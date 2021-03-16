@@ -11,5 +11,8 @@ db: ${db_file}
 check: ${db_file}
 	./check.sh "${db_file}"
 
+fix: ${db_file}
+	./fix.sh "${db_file}"
+
 ${db_file}:
 	./db_up.sh "${db_file}"
