@@ -19,6 +19,9 @@ _run() {
   | sed -e 's/,$//g' \
   | while read -r values; do
       sqlite3 "${db_file}" <<-SQL
+.echo on
+PRAGMA foreign_keys = ON;
+
 BEGIN;
 
   INSERT OR REPLACE INTO packages_installed (plugin_name, version)

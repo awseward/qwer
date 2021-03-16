@@ -26,6 +26,9 @@ _run() {
     | sed -e 's/,$//g' \
     | while read -r values; do
         sqlite3 "${db_file}" <<-SQL
+.echo on
+PRAGMA foreign_keys = ON;
+
 BEGIN;
 
   INSERT INTO plugins_added (name, url, ref1, ref2) VALUES ${values}
