@@ -2,13 +2,6 @@
 
 set -euo pipefail
 
-# plugins_added
-# --------------------------
-# name TEXT NOT NULL UNIQUE
-# url  TEXT NOT NULL
-# ref1 TEXT NOT NULL
-# ref2 TEXT NOT NULL
-
 _run() {
   local -r db_file="${1:-qwer.db}"
 
