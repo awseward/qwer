@@ -14,11 +14,11 @@ CREATE TABLE tool_versions_files (
   absolute_path TEXT NOT NULL UNIQUE
 );
 CREATE TABLE packages_declared (
-  absolute_filepath TEXT NOT NULL
-, plugin_name       TEXT NOT NULL
-, version           TEXT NOT NULL
-, UNIQUE(absolute_filepath, plugin_name, version)
-, FOREIGN KEY(absolute_filepath) REFERENCES tool_versions_files(absolute_filepath) ON DELETE CASCADE
+  absolute_path TEXT NOT NULL
+, plugin_name   TEXT NOT NULL
+, version       TEXT NOT NULL
+, UNIQUE(absolute_path, plugin_name, version)
+, FOREIGN KEY(absolute_path) REFERENCES tool_versions_files(absolute_path) ON DELETE CASCADE
 -- NOTE: This won't quite work, because it could be the case that someone has a
 --       `.tool-versions` file which references a plugin that's not added.
 -- , FOREIGN KEY(plugin_name) REFERENCES plugins_added(name) ON DELETE CASCADE
