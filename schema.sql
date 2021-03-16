@@ -28,6 +28,15 @@ CREATE TABLE packages_declared (
 -- , FOREIGN KEY(plugin_name) REFERENCES plugins_added(name) ON DELETE CASCADE
 );
 
+CREATE TABLE packages_latest (
+  plugin_name TEXT NOT NULL
+, version     TEXT NOT NULL
+, UNIQUE(plugin_name)
+, FOREIGN KEY(plugin_name) REFERENCES plugins_added(name) ON DELETE CASCADE
+);
+
+-- VIEWS
+
 CREATE VIEW v_plugins_missing AS
   SELECT
     plugin_name AS "Missing Plugin"
@@ -43,3 +52,13 @@ CREATE VIEW v_packages_missing AS
   WHERE (plugin_name, version) NOT IN (
     SELECT plugin_name, version FROM packages_installed
   );
+
+CREATE VIEW v_packages_outdated AS
+  SELECT
+    decl.absolute_path
+  , decl.plugin_name
+  , decl.version
+  , late.version AS latest_version
+  FROM packages_declared decl
+  JOIN packages_latest   late ON decl.plugin_name = late.plugin_name
+                             AND decl.version <> late.version;
